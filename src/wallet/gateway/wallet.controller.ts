@@ -1,6 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { WalletService } from '../domain/wallet.service';
 import { SubscribeRequestDTO } from './dto';
+import { WalletType } from '../domain/wallet.type';
 
 @Controller('wallet')
 export class WalletController {
@@ -16,7 +17,7 @@ export class WalletController {
   @Post('/subscribe')
   subscribe(
     @Body() { address, web_hook, provider }: SubscribeRequestDTO,
-  ): Promise<WalletType[]> {
+  ): void {
     return this.walletService.subscribe(address, web_hook, provider);
   }
 }

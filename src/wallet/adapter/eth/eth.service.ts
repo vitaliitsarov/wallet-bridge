@@ -5,6 +5,7 @@ import { CreateWalletUseCase } from '../../domain/create-wallet.use-case';
 import { SubscribeAddressUseCase } from '../../domain/subscribe-address.use-case';
 import { TransactionResponse } from '@ethersproject/providers';
 import { TransactionType } from '../../domain/TransactionType';
+import { WalletType } from '../../domain/wallet.type';
 
 @Injectable()
 export class EthService
@@ -13,7 +14,9 @@ export class EthService
   private provider: BaseProvider;
 
   onModuleInit(): any {
-    this.provider = ethers.getDefaultProvider('');
+    this.provider = new ethers.providers.JsonRpcProvider(
+      'https://mainnet.infura.io/v3/e780d75a119444cabbf8d7ecfbd6df07',
+    );
   }
 
   parse(block: TransactionResponse): TransactionType {

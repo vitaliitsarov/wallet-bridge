@@ -1,4 +1,4 @@
-type WalletType = {
+export type WalletType = {
   privateKey: string;
   address: string;
 };

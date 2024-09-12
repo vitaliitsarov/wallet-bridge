@@ -5,6 +5,7 @@ import { WALLETS_ENUM } from './constants';
 import { CreateWalletUseCase } from './create-wallet.use-case';
 import { SubscribeAddressUseCase } from './subscribe-address.use-case';
 import { TransactionType } from './TransactionType';
+import { WalletType } from './wallet.type';
 
 @Injectable()
 export class WalletService {
