@@ -1,9 +1,8 @@
-import { BaseProvider } from '@ethersproject/providers/src.ts/base-provider';
+import { TransactionResponse } from '@ethersproject/providers';
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { BigNumber, ethers } from 'ethers';
+import { ethers } from 'ethers';
 import { CreateWalletUseCase } from '../../domain/create-wallet.use-case';
 import { SubscribeAddressUseCase } from '../../domain/subscribe-address.use-case';
-import { TransactionResponse } from '@ethersproject/providers';
 import { TransactionType } from '../../domain/TransactionType';
 import { WalletType } from '../../domain/wallet.type';
 
@@ -11,7 +10,7 @@ import { WalletType } from '../../domain/wallet.type';
 export class EthService
   implements CreateWalletUseCase, SubscribeAddressUseCase, OnModuleInit
 {
-  private provider: BaseProvider;
+  private provider: ethers.providers.JsonRpcProvider;
 
   onModuleInit(): any {
     this.provider = new ethers.providers.JsonRpcProvider(
