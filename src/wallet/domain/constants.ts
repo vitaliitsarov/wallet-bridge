@@ -1,6 +1,6 @@
 export enum WALLETS_ENUM {
-  ETHEREUM = 'ethereum',
-  BITCOIN = 'bitcoin',
+  ETHEREUM = 'eth',
+  BITCOIN = 'btc',
   TRON = 'tron',
   TON = 'ton',
 }
