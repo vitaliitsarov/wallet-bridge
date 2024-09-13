@@ -5,16 +5,17 @@ import { CreateWalletUseCase } from '../../domain/create-wallet.use-case';
 import { SubscribeAddressUseCase } from '../../domain/subscribe-address.use-case';
 import { TransactionType } from '../../domain/TransactionType';
 import { WalletType } from '../../domain/wallet.type';
+import { WALLETS_ENUM } from 'src/wallet/domain/constants';
 
 @Injectable()
-export class EthService
+export class EthereumService
   implements CreateWalletUseCase, SubscribeAddressUseCase, OnModuleInit
 {
   private provider: ethers.providers.JsonRpcProvider;
 
   onModuleInit(): any {
     this.provider = new ethers.providers.JsonRpcProvider(
-      'https://mainnet.infura.io/v3/e780d75a119444cabbf8d7ecfbd6df07',
+      'https://sepolia.infura.io/v3/e780d75a119444cabbf8d7ecfbd6df07',
     );
   }
 
@@ -29,16 +30,17 @@ export class EthService
   }
 
   subscribe(address: string, callback: (block: TransactionType) => void) {
-    let eventSymbol = { address };
+    const eventSymbol = { address };
     this.provider.on(eventSymbol, (block: TransactionResponse) => {
       this.provider.off(eventSymbol);
       callback(this.parse(block));
     });
   }
 
-  create(recoveryPhrase: string): WalletType {
+  async create(recoveryPhrase: string): Promise<WalletType> {
     const wallet = ethers.Wallet.fromMnemonic(recoveryPhrase);
     return {
+      network: WALLETS_ENUM.ETHEREUM,
       address: wallet.address,
       privateKey: wallet.privateKey,
     };

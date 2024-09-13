@@ -2,6 +2,7 @@ import { Body, Controller, Post } from '@nestjs/common';
 import { WalletService } from '../domain/wallet.service';
 import { SubscribeRequestDTO } from './dto';
 import { WalletType } from '../domain/wallet.type';
+import { CreateWalletDto } from '../dto/create-wallet.dto';
 
 @Controller('wallet')
 export class WalletController {
@@ -9,8 +10,9 @@ export class WalletController {
 
   @Post('/create')
   createWallets(
-    @Body('recoveryPhrase') recoveryPhrase: string,
+    @Body() createWalletDto: CreateWalletDto,
   ): Promise<WalletType[]> {
+    const { recoveryPhrase } = createWalletDto;
     return this.walletService.createWallets(recoveryPhrase);
   }
 
